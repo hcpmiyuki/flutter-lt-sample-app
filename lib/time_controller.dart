@@ -17,6 +17,7 @@ class TimeController extends StateNotifier<DateTime> {
   }
 
   void start() {
+    reset();
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (Timer timer) {
