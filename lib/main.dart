@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:lt_sample_app/time_controller.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,11 +26,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
+class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final timeController = ref.watch(timeControllerProvider.notifier);
+    final timeState = ref.watch(timeControllerProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('LTアプリ'),
@@ -32,8 +42,8 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          const Text(
-            '00:00',
+          Text(
+            DateFormat.ms().format(timeState),
           ),
           const SizedBox(height: 20),
           Row(
@@ -41,15 +51,11 @@ class Home extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                onPressed: (){},
+                onPressed: () => timeController.start(),
                 child: const Text('スタート')
               ),
               ElevatedButton(
-                onPressed: (){},
-                child: const Text('ストップ')
-              ),
-              ElevatedButton(
-                onPressed: (){},
+                onPressed: () => timeController.reset(),
                 child: const Text('リセット')
               )
             ],
