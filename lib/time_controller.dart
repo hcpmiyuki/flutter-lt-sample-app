@@ -25,10 +25,4 @@ class TimeController extends StateNotifier<DateTime> {
       },
     );
   }
-
-  @override
-  void dispose() {
-    reset();
-    super.dispose();
-  }
 }
