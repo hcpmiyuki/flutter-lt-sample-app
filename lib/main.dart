@@ -42,25 +42,47 @@ class Home extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(
-            DateFormat.ms().format(timeState),
-          ),
+          _msTimeText(timeState, timeController.timeTextColor),
           const SizedBox(height: 20),
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                onPressed: () => timeController.start(),
-                child: const Text('スタート')
+              _circleButton(
+                Icons.play_arrow,
+                timeController.start,
               ),
-              ElevatedButton(
-                onPressed: () => timeController.reset(),
-                child: const Text('リセット')
-              )
+              _circleButton(
+                Icons.restart_alt,
+                timeController.reset,
+              ),
             ],
           )
         ],
+      )
+    );
+  }
+
+  Widget _msTimeText(DateTime dateTime, Color timeTextColor) {
+    return Text(
+      DateFormat.ms().format(dateTime),
+      style: TextStyle(
+        fontSize: 80,
+        color: timeTextColor
+      ),
+    );
+  }
+
+  Widget _circleButton(IconData iconData, VoidCallback onPressed) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        shape: const CircleBorder(),
+        fixedSize: const Size(50, 50)
+      ),
+      onPressed: () => onPressed(),
+      child: Icon(
+        iconData,
+        size: 30,
       )
     );
   }

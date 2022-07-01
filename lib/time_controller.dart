@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
 
 final timeControllerProvider = StateNotifierProvider<TimeController, DateTime>(
   (ref) {
@@ -10,6 +11,8 @@ final timeControllerProvider = StateNotifierProvider<TimeController, DateTime>(
 class TimeController extends StateNotifier<DateTime> {
   TimeController() : super(DateTime.utc(0, 0, 0));
   Timer? _timer;
+  final orangeTime = DateTime.utc(0, 0, 0, 0, 1);
+  final redTime = DateTime.utc(0, 0, 0, 0, 2);
 
   void reset() {
     state = DateTime.utc(0, 0, 0);
@@ -24,5 +27,14 @@ class TimeController extends StateNotifier<DateTime> {
         state = state.add(const Duration(seconds: 1));  
       },
     );
+  }
+
+  Color get timeTextColor {
+    if (state.isAfter(redTime)) {
+      return Colors.red;
+    } else if (state.isAfter(orangeTime)) {
+      return Colors.orange;
+    }
+    return Colors.black;
   }
 }
