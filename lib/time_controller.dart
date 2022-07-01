@@ -1,15 +1,18 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:lt_sample_app/audio_api.dart';
 
 final timeControllerProvider = StateNotifierProvider<TimeController, DateTime>(
   (ref) {
-    return TimeController();
+    final audioApi = ref.watch(audioApiProvider);
+    return TimeController(audioApi);
   }
 );
 
 class TimeController extends StateNotifier<DateTime> {
-  TimeController() : super(DateTime.utc(0, 0, 0));
+  TimeController(this._audioApi) : super(DateTime.utc(0, 0, 0));
+  final AudioApi _audioApi;
   Timer? _timer;
   final orangeTime = DateTime.utc(0, 0, 0, 0, 1);
   final redTime = DateTime.utc(0, 0, 0, 0, 2);
@@ -21,10 +24,15 @@ class TimeController extends StateNotifier<DateTime> {
 
   void start() {
     reset();
+    _audioApi.playStartAudio();
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (Timer timer) {
-        state = state.add(const Duration(seconds: 1));  
+        state = state.add(const Duration(seconds: 1)); 
+
+        if (state.isAtSameMomentAs(redTime)) {
+          _audioApi.playRedAudio();
+        }
       },
     );
   }
