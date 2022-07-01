@@ -31,9 +31,6 @@ class Home extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final timeController = ref.watch(timeControllerProvider.notifier);
-    final timeState = ref.watch(timeControllerProvider);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('LTアプリ'),
@@ -42,22 +39,6 @@ class Home extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _msTimeText(timeState, timeController.timeTextColor),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _circleButton(
-                Icons.play_arrow,
-                timeController.start,
-              ),
-              _circleButton(
-                Icons.restart_alt,
-                timeController.reset,
-              ),
-            ],
-          )
         ],
       )
     );
