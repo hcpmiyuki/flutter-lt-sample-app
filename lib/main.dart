@@ -1,11 +1,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:lt_sample_app/time_controller.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // 画面の向きを固定.
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(
     const ProviderScope(
       child: MyApp()
