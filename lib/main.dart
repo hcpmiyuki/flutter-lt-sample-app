@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -39,9 +41,9 @@ class Home extends ConsumerWidget {
         title: const Text('LTアプリ'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          _face(timeController.faceSize),
           _msTimeText(timeState, timeController.timeTextColor),
           const SizedBox(height: 20),
           Row(
@@ -83,6 +85,23 @@ class Home extends ConsumerWidget {
       child: Icon(
         iconData,
         size: 30,
+      )
+    );
+  }
+
+  Widget _face(double faceSize) {
+    return SizedBox(
+      height: 200,
+      child: Stack(
+        alignment: AlignmentDirectional.center,
+        children: [
+          Image.asset(
+            "assets/images/face.png",
+            fit: BoxFit.fill,
+            height: faceSize,
+            width: faceSize,
+          )
+        ]
       )
     );
   }

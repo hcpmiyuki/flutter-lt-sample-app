@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:lt_sample_app/audio_api.dart';
 
 final timeControllerProvider = StateNotifierProvider<TimeController, DateTime>(
@@ -44,5 +45,12 @@ class TimeController extends StateNotifier<DateTime> {
       return Colors.orange;
     }
     return Colors.black;
+  }
+
+  double get faceSize {
+    if (state.isAfter(redTime)) return 180;
+
+    final stateSeconds = state.minute * 60 + state.second;
+    return stateSeconds / 3;
   }
 }
