@@ -11,8 +11,8 @@ final timeControllerProvider = StateNotifierProvider<TimeController, DateTime>(
 class TimeController extends StateNotifier<DateTime> {
   TimeController() : super(DateTime.utc(0, 0, 0));
   Timer? _timer;
-  final orangeTime = DateTime.utc(0, 0, 0, 0, 1);
-  final redTime = DateTime.utc(0, 0, 0, 0, 2);
+  final orangeTime = DateTime.utc(0, 0, 0, 0, 4);
+  final redTime = DateTime.utc(0, 0, 0, 0, 5);
 
   void reset() {
     state = DateTime.utc(0, 0, 0);
