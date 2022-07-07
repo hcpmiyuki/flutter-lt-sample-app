@@ -44,12 +44,12 @@ class Home extends ConsumerWidget {
     );
   }
 
-  Widget _msTimeText(DateTime dateTime, Color timeTextColor) {
+  Widget _msTimeText(DateTime dateTime) {
     return Text(
       DateFormat.ms().format(dateTime),
       style: TextStyle(
         fontSize: 80,
-        color: timeTextColor
+        color: Colors.black
       ),
     );
   }
